@@ -6,32 +6,25 @@ const config = require('../../config/config.cjs');
 chai.use(chaiHttp);
 
 
+// To validate Products API endpoint for restricted access with invalid token
+
 describe('Products API Tests', function() {
-
     it('Should return 403 for restricted product access', function(done) {
-  chai.request(config.baseUrl)
-    .get('/billing/v3/products/restricted') // match mock server route
-    .set('Authorization', `Bearer ${config.validToken}`)
-    .end((err, res) => {
-      expect(res).to.have.status(403);
-      expect(res.body).to.have.property('message', 'Access to this product is restricted');
-      done();
-      });
-    });
-});
+        const contractId = config.contractId; // set your contract ID here
 
-/*
-describe('Products API Tests', function() {
-
-    it('Should return 403 for restricted product access', function(done) {
         chai.request(config.baseUrl)
-            .get('/billing/v3/products')
+            .get(`/billing/${contractId}/products`)
             .set('Authorization', `Bearer ${config.invalidToken}`)
             .end((err, res) => {
-                expect(res).to.have.status(403);
-                done();
+                if (err) {
+                    console.log('Error status:', err.status);
+                    console.log('Response body:', err.response?.body);
+                    expect(err.status).to.equal(403); // assert on error status
+                    done();
+                } else {
+                    expect(res).to.have.status(403);
+                    done();
+                }
             });
     });
-
 });
-*/

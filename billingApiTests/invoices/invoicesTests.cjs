@@ -5,6 +5,7 @@ const config = require('../../config/config.cjs');
 
 chai.use(chaiHttp);
 
+// To validate Invoices API endpoints for existing and non-existing invoices
 describe('Invoices API Tests', function() {
 
     it('Should return 404 for non-existent invoice', function(done) {
@@ -23,7 +24,7 @@ describe('Invoices API Tests', function() {
     
 it('Should return invoice details for existing invoice', function(done) {
   chai.request(config.baseUrl)
-    .get('/billing/v3/invoices/INV-1001')
+    .get('/billing/v3/invoices/INV-1001')  // existing invoice ID defined in mock server
     .set('Authorization', `Bearer ${config.validToken}`)
     .end((err, res) => {
       expect(res).to.have.status(200);
@@ -35,21 +36,3 @@ it('Should return invoice details for existing invoice', function(done) {
     });
 });
 });
-
-/*
-    it('Should return datacenters array', function(done) {
-        chai.request(config.baseUrl)
-            .get('/billing/v3/invoices/EXISTING_ID')
-            .set('Authorization', `Bearer ${config.validToken}`)
-            .end((err, res) => {
-                if (err) {
-                    console.error('Error:', err);
-                }
-                console.log('Response status:', res.status);
-                console.log('Response body:', res.body);
-                expect(res.body.datacenters).to.be.an('array');
-                done();
-            });
-    });
-
-});*/

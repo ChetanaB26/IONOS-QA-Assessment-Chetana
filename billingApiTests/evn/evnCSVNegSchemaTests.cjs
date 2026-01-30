@@ -1,12 +1,14 @@
 const request = require('superagent');
 const { expect } = require('chai');
+const config = require('../../config/config.cjs'); // import config
 
+// EVN API – CSV Schema Validation (Negative)- 'Additional Parameters' field is added in expectedColumns but missing in actual CSV
 describe('EVN API – CSV Schema Validation (Negative)', () => {
   it('Should fail when CSV schema is incorrect', async () => {
     const res = await request
-      .get('http://localhost:3000/evnFindByPeriod')
+      .get(`${config.baseUrl}/evnFindByPeriod`)
       .query({ period: '2020-01', format: 'csv', invalid: 'true' })
-      .set('Authorization', 'Bearer VALID_TOKEN');
+      .set('Authorization', `Bearer ${config.validToken}`);
 
     const csv = res.body.evnCSV;
     const header = csv[0].split(',');

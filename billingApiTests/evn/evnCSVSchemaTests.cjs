@@ -2,14 +2,17 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 const expect = chai.expect;
+const config = require('../../config/config.cjs'); // import config
 chai.use(chaiHttp);
 
+
+// EVN API – CSV Schema Validation 200 OK - contains correct fields in csv as actual response
 describe('EVN API – CSV Schema Validation', () => {
 
-  it('Should validate EVN CSV response schema', (done) => {
-    chai.request('http://localhost:3000')
+  it('Should validate EVN CSV response schema', (done) => {``
+    chai.request(config.baseUrl)
       .get('/evnFindByPeriod?period=2026-01&format=csv')
-      .set('Authorization', 'Bearer VALID_TOKEN')
+      .set('Authorization', `Bearer ${config.validToken}`)
       .end((err, res) => {
 
         expect(res).to.have.status(200);

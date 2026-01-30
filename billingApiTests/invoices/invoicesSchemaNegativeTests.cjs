@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 const { baseUrl, validToken } = config;
 
-
+// To validate negative schema scenarios in the Invoices API
 describe('Invoices API – Negative Schema Validation', function () {
 
   it('Should fail when datacenters or metadata fields are missing', function (done) {
@@ -44,30 +44,3 @@ describe('Invoices API – Negative Schema Validation', function () {
   });
 
 });
-
-
-
-
-
-
-/*describe('Invoices API – Negative Schema Validation', function() {
-
-    it('Should fail when datacenters or metadata fields are missing', function(done) {
-        chai.request(baseUrl)
-            .get('/billing/v3/invoices?mock=missingFields') // query param to trigger negative mock
-            .set('Authorization', `Bearer ${validToken}`)
-            .end(function(err, res) {
-                expect(res).to.have.status(200);
-
-                // datacenters array should exist
-                expect(res.body).to.have.property('datacenters');
-                
-                // Force fail by checking a field we know is missing in mock
-                expect(res.body.datacenters[0]).to.have.property('nonExistingField'); // This will fail
-                done();
-                console.log(res.body);
-            });
-    });
-
-});
-*/

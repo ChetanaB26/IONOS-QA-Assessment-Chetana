@@ -12,9 +12,7 @@ const invalidToken = 'INVALID_TOKEN';
 
 describe('EVN API Tests', function() {
 
-  // -----------------------------
-  // Test Scenario 1: Status Code Validation – evnGet
-  // -----------------------------
+  // Status Code Validation – evnGet
 
   it('Should return 200 OK for valid evnGet request', function(done) {
     chai.request(baseUrl)
@@ -36,21 +34,8 @@ describe('EVN API Tests', function() {
       });
   });
 
-  /*it('Should return 200 OK for valid evnGet request', function(done) {
-    chai.request(baseUrl)
-      .get('/evnGet')
-      .set('Authorization', `Bearer ${validToken}`)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.have.property('evnId');
-        expect(res.body).to.have.property('description');
-        done();
-      });
-  });
-*/
-  // -----------------------------
-  // Test Scenario 2: Authentication with Invalid Credentials – evnFindByPeriod
-  // -----------------------------
+
+  // Authentication with Invalid Credentials – evnFindByPeriod
   it('Should return 401 Unauthorized for evnFindByPeriod with invalid token', function(done) {
     chai.request(baseUrl)
       .get('/evnFindByPeriod')
@@ -63,9 +48,8 @@ describe('EVN API Tests', function() {
       });
   });
 
-  // -----------------------------
-  // Missing period parameter
-  // -----------------------------
+  // Missing period parameter– evnFindByPeriod
+ 
   it('Should return 400 Bad Request when period is missing', function(done) {
     chai.request(baseUrl)
       .get('/evnFindByPeriod')

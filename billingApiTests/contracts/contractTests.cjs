@@ -6,6 +6,8 @@ const config = require('../../config/config.cjs');
 const { expect } = chai;
 chai.use(chaiHttp);
 
+
+// to validate contracts endpoint should return datacenters Array for valid token
 describe('Invoices API Tests – Contracts / Datacenters', function() {
 
     it('Should return datacenters array for valid token (200)', function(done) {
@@ -36,21 +38,7 @@ describe('Invoices API Tests – Contracts / Datacenters', function() {
             });
     });
 
-
-  /*
-  it('Should return datacenters array for valid token (200)', function (done) {
-    chai.request(config.baseUrl)
-      .get('/billing/v3/invoices/EXISTING_ID') // must exist in mock server
-      .set('Authorization', `Bearer ${config.validToken}`)
-      .end((err, res) => {
-        if (err) return done(err);
-
-        expect(res).to.have.status(200);
-        expect(res.body).to.have.property('datacenters');
-        expect(res.body.datacenters).to.be.an('array');
-        done();
-      });
-  }); */
+    //to validate contracts endpoint should give 401 error for invalid token 
 
   it('Should return 401 for invalid token', function (done) {
     chai.request(config.baseUrl)

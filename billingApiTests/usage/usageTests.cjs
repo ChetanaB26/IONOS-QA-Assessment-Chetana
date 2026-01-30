@@ -32,19 +32,3 @@ describe('Usage API Tests', function() {
         });
 });
 });
-/*
-    it('Should return 429 Too Many Requests under rate limit', function(done) {
-        // Example: hit endpoint twice quickly
-        Promise.all([
-            chai.request(config.baseUrl).get('/billing/v3/items').set('Authorization', `Bearer ${config.validToken}`),
-            chai.request(config.baseUrl).get('/billing/v3/items').set('Authorization', `Bearer ${config.validToken}`)
-        ]).then(responses => {
-            responses.forEach(res => {
-                expect([200, 429]).to.include(res.status);
-            });
-            done();
-        });
-    });
-
-});
-*/

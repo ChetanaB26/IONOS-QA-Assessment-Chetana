@@ -515,8 +515,8 @@ app.get('/evnGet', (req, res) => {
 
   res.status(200).json({
     evnCSV: [
-      "contractId,VDCUUID,VDCName,ResourceType,ResourceUUID,IntervalMin,IntervalDivisor,From,To,ItemStub,Value,ValueDivisor,Additional Parameters",
-      "31805900,f2c2edf6-49f7-4687-8100-872b4d02ddcc,Main VDC,SERVER,504b4dff-56e3-49cd-89b1-dbed716c6265,44640,60,2020-01-01T00:00:00.000Z,2020-01-31T23:59:59.999Z,C01000,2,1,AMD_OPTERON"
+      "contractId,VDCUUID,VDCName,ResourceType,ResourceUUID,IntervalMin,IntervalDivisor,From,To,ItemStub,Value,ValueDivisor",
+      "31805900,f2c2edf6-49f7-4687-8100-872b4d02ddcc,Main VDC,SERVER,504b4dff-56e3-49cd-89b1-dbed716c6265,44640,60,2020-01-01T00:00:00.000Z,2020-01-31T23:59:59.999Z,C01000,2,1"
     ]
   });
 });
@@ -543,7 +543,7 @@ app.get('/evnFindByPeriod', (req, res) => {
 /* =======================
    PRODUCTS API
 ======================= */
-
+/*
 app.get('/products/:id', (req, res) => {
     const restrictedProductIds = ['PROD-RESTRICTED'];
     if (restrictedProductIds.includes(req.params.id)) {
@@ -567,6 +567,28 @@ app.get('/billing/v3/products/restricted', (req, res) => {
 
   // Simulate restricted product
   res.status(403).json({ message: 'Access to this product is restricted' });
+});
+*/
+
+
+// Mock products API with contract ID
+app.get('/billing/:contractId/products', (req, res) => {
+    const authHeader = req.headers.authorization;
+
+    // If token is missing or invalid, simulate forbidden access
+    if (!authHeader || authHeader !== `Bearer ${VALID_TOKEN}`) {
+        return res.status(403).json({
+            status: 403,
+            code: 'ForbiddenError',
+            message: 'Restricted access'
+        });
+    }
+
+    // For valid token, return sample products
+    res.status(200).json([
+        { id: 'PROD-001', name: 'Standard Product' },
+        { id: 'PROD-002', name: 'Premium Product' }
+    ]);
 });
 
 

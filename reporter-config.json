@@ -1,0 +1,9 @@
+
+{
+  "reporterEnabled": "spec, mochawesome",
+  "mochawesomeReporterOptions": {
+    "reportDir": "reports",
+    "reportFilename": "billing-api-report",
+    "quiet": true
+  }
+}
